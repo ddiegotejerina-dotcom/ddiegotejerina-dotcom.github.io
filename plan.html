@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Equilibrio Project Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single reading column (~920px) with full-width data blocks; identity taken from the game (map ocean + interface gold). */
+:root {
+  --bg: #f2f4f7;
+  --surface: #ffffff;
+  --ink: #142235;
+  --muted: #5b6878;
+  --line: #d9dee6;
+  --accent: #9a6b12;
+  --accent-soft: #f4e8cf;
+  --ok: #2f7d3b; --ok-soft: #e1f1e3;
+  --wip: #a35c00; --wip-soft: #fbe9d2;
+  --next: #2d5f9a; --next-soft: #e1ebf7;
+  --later: #6a6f7a; --later-soft: #eceef1;
+  --f-display: "VT323", "Courier New", monospace;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0e1a2b; --surface: #15263c; --ink: #e9edf3; --muted: #9aa8ba; --line: #26405f;
+  --accent: #e8c46a; --accent-soft: #2c3524;
+  --ok: #8fd69a; --ok-soft: #173426; --wip: #f2b35e; --wip-soft: #3a2b16;
+  --next: #8ab8ee; --next-soft: #18304d; --later: #a3abb8; --later-soft: #1d2c40;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0e1a2b; --surface: #15263c; --ink: #e9edf3; --muted: #9aa8ba; --line: #26405f;
+  --accent: #e8c46a; --accent-soft: #2c3524;
+  --ok: #8fd69a; --ok-soft: #173426; --wip: #f2b35e; --wip-soft: #3a2b16;
+  --next: #8ab8ee; --next-soft: #18304d; --later: #a3abb8; --later-soft: #1d2c40;
+  color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--f-body); padding: 40px 16px 72px; }
+main { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px; }
+h1, h2 { font-family: var(--f-display); font-weight: 400; line-height: 1; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(64px, 12vw, 112px); letter-spacing: 2px; color: var(--accent); }
+h2 { font-size: 40px; letter-spacing: 1px; }
+h3 { font-size: 17px; font-weight: 600; margin: 0; }
+p { margin: 0; max-width: 68ch; }
+a { color: inherit; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.back { font: 500 14px/1 var(--f-mono); color: var(--muted); text-decoration: none; align-self: flex-start; }
+.back:hover { color: var(--accent); }
+.eyebrow { font: 500 12px/1 var(--f-mono); text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
+section { display: flex; flex-direction: column; gap: 20px; }
+.sec-head { display: flex; flex-direction: column; gap: 8px; }
+.lead { font-size: 19px; color: var(--ink); max-width: 60ch; }
+.muted { color: var(--muted); }
+
+header { display: flex; flex-direction: column; gap: 18px; padding-bottom: 32px; border-bottom: 2px solid var(--ink); }
+.meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px 28px; margin-top: 8px; }
+.meta div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.meta b { font-weight: 500; }
+
+.cifras { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.cifras div { background: var(--surface); padding: 18px 16px; display: flex; flex-direction: column; gap: 4px; }
+.cifras strong { font: 400 46px/1 var(--f-display); color: var(--accent); font-variant-numeric: tabular-nums; }
+.cifras span { font-size: 14px; color: var(--muted); line-height: 1.3; }
+
+.dos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.caja { background: var(--surface); border: 1px solid var(--line); padding: 20px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+ul.lista { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+ul.lista li::marker { color: var(--accent); }
+
+.proceso { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line); }
+.paso { padding: 16px 16px 0 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.paso .n { font: 400 30px/1 var(--f-display); color: var(--accent); }
+.paso p { font-size: 15px; color: var(--muted); }
+
+.leyenda { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 14px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font: 500 12px/1 var(--f-mono); padding: 5px 8px; border-radius: 3px; white-space: nowrap; }
+.chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.s-ok { color: var(--ok); background: var(--ok-soft); }
+.s-wip { color: var(--wip); background: var(--wip-soft); }
+.s-next { color: var(--next); background: var(--next-soft); }
+.s-later { color: var(--later); background: var(--later-soft); }
+.fase { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 20px; padding: 22px 0; border-top: 1px solid var(--line); }
+.fase-head { display: flex; flex-direction: column; gap: 8px; }
+.fase-head .num { font: 400 22px/1 var(--f-display); color: var(--muted); }
+.fase-head p { font-size: 14px; color: var(--muted); }
+.entregas { display: flex; flex-direction: column; gap: 10px; }
+.entrega { display: grid; grid-template-columns: 54px minmax(0, 1fr) auto; gap: 4px 14px; align-items: baseline; }
+.entrega .id { font: 500 14px/1.4 var(--f-mono); color: var(--accent); }
+.entrega .txt { min-width: 0; }
+.entrega .txt b { font-weight: 600; }
+.entrega .txt span { display: block; font-size: 14px; color: var(--muted); line-height: 1.45; }
+.barra { height: 6px; background: var(--later-soft); border-radius: 3px; overflow: hidden; margin-top: 4px; }
+.barra i { display: block; height: 100%; background: var(--accent); }
+
+.tabla-wrap { overflow-x: auto; border: 1px solid var(--line); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 15px; }
+th { text-align: left; font: 500 12px/1.2 var(--f-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); padding: 12px 14px; border-bottom: 1px solid var(--line); }
+td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.45; }
+tr:last-child td { border-bottom: 0; }
+td.fecha { font-family: var(--f-mono); font-size: 14px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.nivel { font: 500 12px/1 var(--f-mono); padding: 4px 7px; border-radius: 3px; white-space: nowrap; }
+.alto { color: var(--wip); background: var(--wip-soft); }
+.medio { color: var(--next); background: var(--next-soft); }
+
+.decisiones { display: flex; flex-direction: column; gap: 0; }
+.decision { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; padding: 16px 0; border-top: 1px solid var(--line); }
+.decision .cuando { font: 500 13px/1.5 var(--f-mono); color: var(--muted); }
+.decision p { font-size: 15px; color: var(--muted); margin-top: 4px; }
+
+footer { border-top: 2px solid var(--ink); padding-top: 18px; font-size: 14px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+
+@media (max-width: 720px) {
+  .cifras, .proceso { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dos { grid-template-columns: minmax(0, 1fr); }
+  .fase { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .decision { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .entrega { grid-template-columns: 46px minmax(0, 1fr); }
+  .entrega .chip { grid-column: 2; justify-self: start; }
+}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <a class="back" href="./">← Diego Tejerina · Projects</a>
+    <span class="eyebrow">Project plan · updated Nov 13, 2026</span>
+    <h1>EQUILIBRIO</h1>
+    <p class="lead">A real-time geopolitical strategy game for the browser. Pick a power (USA, China, Russia, Brazil or Argentina) and compete for influence on an isometric map of the real world, without letting global tension reach 100.</p>
+    <div class="meta">
+      <div><span class="eyebrow">Role</span><b>Diego Tejerina</b><span class="muted">Product, game design and project lead</span></div>
+      <div><span class="eyebrow">Development</span><b>AI-assisted with Claude Code</b><span class="muted">Pair programming with AI, reviewed stage by stage</span></div>
+      <div><span class="eyebrow">Tech stack</span><b>Plain HTML + JavaScript</b><span class="muted">No frameworks, nothing to install: open the file and play</span></div>
+      <div><span class="eyebrow">Status</span><b>Phase 3 of 6</b><span class="muted">Balance and gameplay</span></div>
+    </div>
+  </header>
+
+  <section aria-labelledby="t-cifras">
+    <div class="sec-head"><span class="eyebrow">Where we are</span><h2 id="t-cifras">By the numbers</h2></div>
+    <div class="cifras">
+      <div><strong>11</strong><span>deliverables completed and approved</span></div>
+      <div><strong>~7,700</strong><span>lines of code across 10 files</span></div>
+      <div><strong>0</strong><span>dependencies to install</span></div>
+      <div><strong>44</strong><span>playable regions, 9 strategic chokepoints and 24 actions</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-alcance">
+    <div class="sec-head"><span class="eyebrow">Goal and scope</span><h2 id="t-alcance">What it has to achieve</h2>
+      <p>A strategy game built for long sessions on a computer, in the spirit of Twilight Struggle or Hearts of Iron but simpler. It has to be fun with any power and easy to understand without a manual.</p></div>
+    <div class="dos">
+      <div class="caja"><h3>In scope</h3>
+        <ul class="lista">
+          <li>Navigable isometric map with real geography (Natural Earth)</li>
+          <li>Real-time clock with pause and three speeds</li>
+          <li>Military, hybrid, economic, diplomatic and domestic actions</li>
+          <li>AI rivals, treaties, military pacts and events with decisions</li>
+          <li>Economy, construction, country-specific victories and defeats</li>
+          <li>Save games, code-generated sound, English version</li>
+        </ul></div>
+      <div class="caja"><h3>Out of scope (for now)</h3>
+        <ul class="lista">
+          <li>Multiplayer and servers</li>
+          <li>Tactical combat with troop movement</li>
+          <li>Mobile version</li>
+          <li>Paid audio or art assets (everything is CC0 or generated in code)</li>
+          <li>User accounts or cloud data</li>
+        </ul></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-proceso">
+    <div class="sec-head"><span class="eyebrow">How we work</span><h2 id="t-proceso">The cycle of each stage</h2>
+      <p>The project moves forward in short stages. None starts until the previous one works and is approved, and every design change is written into the spec first.</p></div>
+    <div class="proceso">
+      <div class="paso"><span class="n">1</span><h3>Specify</h3><p>The idea goes into the spec (SPEC.md) with rules, numbers and acceptance criteria.</p></div>
+      <div class="paso"><span class="n">2</span><h3>Plan</h3><p>A detailed stage plan: what changes, which files it touches and how it will be tested. Approved before any code is written.</p></div>
+      <div class="paso"><span class="n">3</span><h3>Build and test</h3><p>Coding, in-browser testing, multi-year simulations and performance measurement.</p></div>
+      <div class="paso"><span class="n">4</span><h3>Playtest and approve</h3><p>A real game with different powers. Findings go back into the spec as tweaks or new stages.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-ruta">
+    <div class="sec-head"><span class="eyebrow">Roadmap</span><h2 id="t-ruta">Phases and deliverables</h2>
+      <div class="leyenda"><span class="chip s-ok">Done</span><span class="chip s-wip">In review</span><span class="chip s-next">Next</span><span class="chip s-later">Planned</span></div></div>
+
+    <div>
+      <div class="fase">
+        <div class="fase-head"><span class="num">PHASE 1</span><h3>Foundations</h3><p>The world can be seen and explored.</p><div class="barra" aria-label="3 of 3 deliverables"><i style="width:100%"></i></div></div>
+        <div class="entregas">
+          <div class="entrega"><span class="id">0</span><div class="txt"><b>Prototype v1</b><span>Flat, turn-based board to validate the idea.</span></div><span class="chip s-ok">Done</span></div>
+          <div class="entrega"><span class="id">1</span><div class="txt"><b>Isometric map</b><span>Real geography, drag camera, zoom and minimap.</span></div><span class="chip s-ok">Nov 10</span></div>
+          <div class="entrega"><span class="id">2</span><div class="txt"><b>Buildings and landmarks</b><span>Regional architecture drawn in code, plus Antarctica, the Falklands and Palestine.</span></div><span class="chip s-ok">Nov 10</span></div>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="fase-head"><span class="num">PHASE 2</span><h3>Core systems</h3><p>A full game can be played.</p><div class="barra" aria-label="5 of 5 deliverables"><i style="width:100%"></i></div></div>
+        <div class="entregas">
+          <div class="entrega"><span class="id">3</span><div class="txt"><b>Real-time engine</b><span>Clock, resources, timed actions with success odds, AI rivals, events, media headlines and global tension.</span></div><span class="chip s-ok">Nov 11</span></div>
+          <div class="entrega"><span class="id">4a</span><div class="txt"><b>Construction</b><span>Mines, factories, ports, power plants and bases; save games and sound.</span></div><span class="chip s-ok">Nov 11</span></div>
+          <div class="entrega"><span class="id">4b</span><div class="txt"><b>Soft power and growing cities</b><span>Culture that earns influence, tourism and animated life on the map.</span></div><span class="chip s-ok">Nov 11</span></div>
+          <div class="entrega"><span class="id">5a</span><div class="txt"><b>Relations and treaties</b><span>Relations between powers: trade, non-aggression and mutual defense.</span></div><span class="chip s-ok">Nov 11</span></div>
+          <div class="entrega"><span class="id">5b</span><div class="txt"><b>Military pacts</b><span>Alliances with the countries you control, with costs and benefits.</span></div><span class="chip s-ok">Nov 11</span></div>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="fase-head"><span class="num">PHASE 3</span><h3>Balance and gameplay</h3><p>Make it fun with what it already has. Driven by real playtests.</p><div class="barra" aria-label="3 of 5 deliverables"><i style="width:60%"></i></div></div>
+        <div class="entregas">
+          <div class="entrega"><span class="id">6a</span><div class="txt"><b>An economy that works</b><span>Control pays off, value chains, and buildings that earn back their cost.</span></div><span class="chip s-ok">Nov 12</span></div>
+          <div class="entrega"><span class="id">6b-1</span><div class="txt"><b>How you win</b><span>National power score, rankings, a victory condition for each country, and a decade report.</span></div><span class="chip s-ok">Nov 12</span></div>
+          <div class="entrega"><span class="id">6b-2</span><div class="txt"><b>How you lose</b><span>Debt, governance crisis and failed state.</span></div><span class="chip s-ok">Nov 12</span></div>
+          <div class="entrega"><span class="id">6c-1</span><div class="txt"><b>See and protect your influence</b><span>Influence map view, at-risk country list, early warnings, entrenchment and decay.</span></div><span class="chip s-wip">In review</span></div>
+          <div class="entrega"><span class="id">6c-2</span><div class="txt"><b>Fairer rivals and failures</b><span>Rivals that don't react to everything, and every failure explained.</span></div><span class="chip s-next">Next</span></div>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="fase-head"><span class="num">PHASE 4</span><h3>Living world</h3><p>Shift from a game of actions to a game of lasting situations.</p><div class="barra" aria-label="0 of 3 deliverables"><i style="width:0%"></i></div></div>
+        <div class="entregas">
+          <div class="entrega"><span class="id">7a</span><div class="txt"><b>Disasters</b><span>Earthquakes, hurricanes, droughts: visible on the map, with options to send aid or rebuild.</span></div><span class="chip s-later">Planned</span></div>
+          <div class="entrega"><span class="id">7b</span><div class="txt"><b>Armed conflicts</b><span>Moving front lines with phases; arm a side, mediate or sanction. Includes drones.</span></div><span class="chip s-later">Planned</span></div>
+          <div class="entrega"><span class="id">7c</span><div class="txt"><b>Ambient life</b><span>Planes, ships along trade routes, smoke over war zones.</span></div><span class="chip s-later">Planned</span></div>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="fase-head"><span class="num">PHASE 5</span><h3>Depth</h3><p>More systems on top of a base that is already fun.</p><div class="barra" aria-label="0 of 6 deliverables"><i style="width:0%"></i></div></div>
+        <div class="entregas">
+          <div class="entrega"><span class="id">6d</span><div class="txt"><b>Unlockable actions</b><span>Each country offers new actions depending on your position there.</span></div><span class="chip s-later">Planned</span></div>
+          <div class="entrega"><span class="id">8</span><div class="txt"><b>Population and military branches</b><span>Army, navy, air force and nuclear capability.</span></div><span class="chip s-later">Planned</span></div>
+          <div class="entrega"><span class="id">9</span><div class="txt"><b>NGOs and companies</b><span>Influence, resource extraction and trade.</span></div><span class="chip s-later">Planned</span></div>
+          <div class="entrega"><span class="id">10</span><div class="txt"><b>Strategic AI</b><span>Long-term plans and rivals that pursue their own victory.</span></div><span class="chip s-later">Planned</span></div>
+          <div class="entrega"><span class="id">11</span><div class="txt"><b>Animated scenes</b><span>Protests, uprisings and bombings visible in cities.</span></div><span class="chip s-later">Planned</span></div>
+          <div class="entrega"><span class="id">12</span><div class="txt"><b>Nuclear war</b><span>If tension maxes out, the ending plays out on the map.</span></div><span class="chip s-later">Planned</span></div>
+        </div>
+      </div>
+
+      <div class="fase">
+        <div class="fase-head"><span class="num">PHASE 6</span><h3>Launch</h3><p>Reach more players.</p><div class="barra" aria-label="0 of 1 deliverables"><i style="width:0%"></i></div></div>
+        <div class="entregas">
+          <div class="entrega"><span class="id">13</span><div class="txt"><b>English version</b><span>Done last, once the text is stable, to avoid translating twice. New text is already written in data tables to make this easy.</span></div><span class="chip s-later">Planned</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-hitos">
+    <div class="sec-head"><span class="eyebrow">Milestones</span><h2 id="t-hitos">Checkpoints</h2></div>
+    <div class="tabla-wrap"><table>
+      <thead><tr><th>Milestone</th><th>Done when</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><b>M1 · The world exists</b></td><td>Real, navigable map that runs smoothly on an Intel Mac</td><td class="fecha"><span class="chip s-ok">Nov 10</span></td></tr>
+        <tr><td><b>M2 · First playable game</b></td><td>Clock, actions, AI and events working together end to end</td><td class="fecha"><span class="chip s-ok">Nov 11</span></td></tr>
+        <tr><td><b>M3 · Full diplomacy</b></td><td>Relations, treaties and pacts that change AI decisions</td><td class="fecha"><span class="chip s-ok">Nov 11</span></td></tr>
+        <tr><td><b>M4 · Win and lose</b></td><td>Every power has its own victory, and there are two ways to lose</td><td class="fecha"><span class="chip s-ok">Nov 12</span></td></tr>
+        <tr><td><b>M5 · Campaign game</b></td><td>Phases 3 and 4 complete: lasting situations that force you to react</td><td class="fecha"><span class="chip s-next">Next</span></td></tr>
+        <tr><td><b>M6 · Version 1.0</b></td><td>All phases complete, in Spanish and English</td><td class="fecha"><span class="chip s-later">Planned</span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section aria-labelledby="t-riesgos">
+    <div class="sec-head"><span class="eyebrow">Risks</span><h2 id="t-riesgos">What could go wrong</h2></div>
+    <div class="tabla-wrap"><table>
+      <thead><tr><th>Risk</th><th>Impact</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        <tr><td>The game feels like "painting the map" and doesn't hold interest long term</td><td><span class="nivel alto">High</span></td><td>Phase 4 (Living world) moved up; new actions pushed back</td></tr>
+        <tr><td>Scope grows faster than work gets finished</td><td><span class="nivel alto">High</span></td><td>Small stages, split into parts (6b-1, 6b-2…), and none starts until the previous one is approved</td></tr>
+        <tr><td>Performance on older computers</td><td><span class="nivel medio">Medium</span></td><td>Zoomed-out map cached as an image, animations only on screen, performance measured every stage</td></tr>
+        <tr><td>Imbalance between powers (the USA is too easy)</td><td><span class="nivel medio">Medium</span></td><td>Multi-year AI-only simulations and thresholds calibrated with measured data</td></tr>
+        <tr><td>Changes that break saved games</td><td><span class="nivel medio">Medium</span></td><td>Every stage loads saves from earlier versions, and files are validated before loading</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section aria-labelledby="t-decisiones">
+    <div class="sec-head"><span class="eyebrow">Decision log</span><h2 id="t-decisiones">Key decisions</h2></div>
+    <div class="decisiones">
+      <div class="decision"><span class="cuando">Kickoff</span><div><h3>No frameworks, nothing to install</h3><p>Plain HTML and JavaScript: the game opens with a double click. Simpler to maintain and to learn from.</p></div></div>
+      <div class="decision"><span class="cuando">Kickoff</span><div><h3>The spec leads</h3><p>Every design change is written into SPEC.md first. The code follows the document, not the other way around.</p></div></div>
+      <div class="decision"><span class="cuando">Nov 12</span><div><h3>USA victory threshold based on data</h3><p>Changed from "30% more than China" to "double": the USA starts 50% ahead, so 30% would have been an automatic win.</p></div></div>
+      <div class="decision"><span class="cuando">Nov 12</span><div><h3>Large stages split in two</h3><p>Winning and losing were built and tested separately (6b-1 and 6b-2) so each part could be approved through play.</p></div></div>
+      <div class="decision"><span class="cuando">Nov 13</span><div><h3>Living world before more actions</h3><p>After a playtest with Brazil, the game felt "action-driven". More actions would reinforce that, so lasting situations come first.</p></div></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-calidad">
+    <div class="sec-head"><span class="eyebrow">Quality</span><h2 id="t-calidad">How it's tested</h2></div>
+    <div class="dos">
+      <div class="caja"><h3>Every stage</h3>
+        <ul class="lista">
+          <li>Each rule tested by forcing the case (debt, crisis, victory)</li>
+          <li>Six-year AI-only simulation to check the world neither freezes nor falls apart</li>
+          <li>Save and load, including saves from earlier versions</li>
+          <li>Screens 1280 px wide and up</li>
+        </ul></div>
+      <div class="caja"><h3>QA pass (Nov 12)</h3>
+        <ul class="lista">
+          <li>Smoke test, chaos testing and edge cases</li>
+          <li>4 bugs fixed: corrupted save files, end of game and keyboard</li>
+          <li>3 minor issues logged for later, 1 already fixed in 6c-1</li>
+        </ul></div>
+    </div>
+  </section>
+
+  <footer><span>Equilibrio · a personal project by Diego Tejerina</span><span>Terrain art: Kenney (CC0) · Geography: Natural Earth</span></footer>
+</main>
+</body>
+</html>

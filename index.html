@@ -128,6 +128,12 @@ footer .big{font-family:var(--font-display);font-size:24px;color:var(--text);fon
 .card.wide{grid-template-columns:1fr}
 .card.wide .preview{border-left:0;border-top:1px solid var(--line);padding:20px}
 .shot{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 24px}
+.kpis div{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.kpis b{display:block;font-family:var(--font-display);font-size:26px;color:var(--accent);font-variant-numeric:tabular-nums;line-height:1.1}
+.kpis span{font-size:14px;color:var(--muted);line-height:1.3;display:block;margin-top:4px}
+.planlink{margin-top:24px}
+@media (max-width:860px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:860px){
   .card{grid-template-columns:1fr}
   .card .preview{border-left:0;border-top:1px solid var(--line)}
@@ -290,14 +296,21 @@ footer .big{font-family:var(--font-display);font-size:24px;color:var(--text);fon
   <h2 class="sec-title">On the side</h2>
   <article class="card wide">
     <div class="copy">
-      <div class="meta"><span class="status dev">● In development</span><span>Personal project · 2026</span></div>
+      <div class="meta"><span class="status dev">● Phase 3 of 6</span><span>Personal project · 2026</span></div>
       <h3>Equilibrio: a geopolitical strategy game</h3>
-      <p class="sub">A single-player game I'm building for fun, to push how far I can take AI-assisted development.</p>
+      <p class="sub">A real-time browser game where you pick a power (USA, China, Russia, Brazil or Argentina) and compete for influence on a map of the real world, without letting global tension reach 100.</p>
+      <div class="kpis">
+        <div><b>11</b><span>deliverables shipped and approved</span></div>
+        <div><b>6</b><span>phases on the roadmap</span></div>
+        <div><b>44</b><span>playable regions, 24 actions</span></div>
+        <div><b>0</b><span>dependencies to install</span></div>
+      </div>
       <dl>
-        <div><dt>The idea</dt><dd>You lead a country (Argentina in this run) on a global map in 2027. You manage money, political capital, intelligence, military and energy, and use military, hybrid, economic and diplomatic actions to shift the balance between powers.</dd></div>
-        <div><dt>What it shows</dt><dd>Turning a loose idea into a scoped design (resources, power tiers, map logic, news feed) and building it step by step with AI tools, light enough to run on a regular laptop.</dd></div>
+        <div><dt>My role</dt><dd>Product owner, game designer and project lead. I build it with AI (Claude Code) and review every stage before the next one starts.</dd></div>
+        <div><dt>How I run it</dt><dd>Spec first, then a stage plan, build and test, then a real playtest that feeds back into the spec. The plan includes a phased roadmap, milestones, a risk log, a decision log and QA passes.</dd></div>
       </dl>
-      <div class="stack"><span>Game design</span><span>Scoping</span><span>Claude Code</span></div>
+      <div class="stack"><span>Roadmapping</span><span>Risk management</span><span>QA testing</span><span>Claude Code</span></div>
+      <a class="btn primary planlink" href="plan.html">See the full project plan →</a>
     </div>
     <div class="preview">
       <img class="shot" src="juego.jpg" alt="Equilibrio game screen: world map with regions, resource bar and action panel" width="1600" height="890" loading="lazy">
