@@ -16,8 +16,8 @@
   --line:#2f2a3b;
   --text:#f3f1f7;
   --muted:#a6a0b5;
-  --accent:#ff6d5a;
-  --accent-2:#ea4b71;
+  --accent:#b69cff;
+  --accent-2:#8f72f5;
   --ok:#4fd1a5;
   --warn:#f5b84a;
   --font-display:"Sora", "Segoe UI", system-ui, sans-serif;
@@ -40,16 +40,16 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 /* Header */
 nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:24px 0;flex-wrap:wrap}
 .logo{font-family:var(--font-display);font-weight:700;font-size:20px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
-.logo i{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:inline-block}
+.logo i{width:12px;height:12px;border-radius:50%;background:var(--accent);display:inline-block}
 .navlinks{display:flex;gap:10px;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:16px;padding:11px 20px;border-radius:999px;border:1px solid var(--line);background:var(--surface);transition:border-color .15s,transform .15s}
 .btn:hover{border-color:var(--accent)}
-.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));border:0;color:#fff}
+.btn.primary{background:var(--accent);border:0;color:#140f24}
 
 header.hero{padding:56px 0 40px}
 .tag{font-family:var(--font-mono);font-size:14px;color:var(--accent);letter-spacing:.04em}
 h1{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,6vw,64px);line-height:1.08;letter-spacing:-.025em;margin:14px 0 22px;max-width:16ch;text-wrap:balance}
-h1 span{background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+h1 span{color:var(--accent)}
 .lede{font-size:21px;color:var(--muted);max-width:60ch;margin:0}
 .facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
 .chip{font-size:15px;padding:7px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--muted)}
@@ -97,7 +97,7 @@ dd{margin:2px 0 0}
 /* Chat bubble */
 .chat{display:grid;gap:8px;font-size:14px}
 .bubble{max-width:86%;padding:10px 14px;border-radius:14px;line-height:1.45}
-.bubble.me{justify-self:end;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border-bottom-right-radius:4px}
+.bubble.me{justify-self:end;background:var(--accent-2);color:#fff;border-bottom-right-radius:4px}
 .bubble.bot{background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:4px}
 
 /* Savings */
@@ -113,7 +113,7 @@ dd{margin:2px 0 0}
 .feed{display:grid;gap:10px}
 .entry{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--ok);border-radius:12px;padding:12px 14px;font-size:14px}
 .entry.mid{border-left-color:var(--warn)}
-.entry.unv{border-left-color:var(--accent-2)}
+.entry.unv{border-left-color:#ea4b71}
 .entry .top{display:flex;justify-content:space-between;gap:8px;font-family:var(--font-mono);font-size:12px;color:var(--muted);margin-bottom:4px}
 
 /* Footer */
@@ -125,6 +125,9 @@ footer{border-top:1px solid var(--line);padding:36px 0 48px;display:flex;justify
 footer p{margin:0;color:var(--muted)}
 footer .big{font-family:var(--font-display);font-size:24px;color:var(--text);font-weight:600}
 
+.card.wide{grid-template-columns:1fr}
+.card.wide .preview{border-left:0;border-top:1px solid var(--line);padding:20px}
+.shot{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--line)}
 @media (max-width:860px){
   .card{grid-template-columns:1fr}
   .card .preview{border-left:0;border-top:1px solid var(--line)}
@@ -216,7 +219,7 @@ footer .big{font-family:var(--font-display);font-size:24px;color:var(--text);fon
       <div class="flow">
         <div class="node"><div class="ic" style="background:#229ed9">T</div>Telegram<small>trigger</small></div>
         <div class="wire"></div>
-        <div class="node hl"><div class="ic" style="background:linear-gradient(135deg,var(--accent),var(--accent-2))">AI</div>AI Agent<small>Gemini</small></div>
+        <div class="node hl"><div class="ic" style="background:var(--accent-2)">AI</div>AI Agent<small>Gemini</small></div>
         <div class="wire"></div>
         <div class="node"><div class="ic" style="background:#4285f4">31</div>Calendar<small>read events</small></div>
       </div>
@@ -285,27 +288,19 @@ footer .big{font-family:var(--font-display);font-size:24px;color:var(--text);fon
 
 <section class="projects" aria-label="Personal project" style="padding-top:0">
   <h2 class="sec-title">On the side</h2>
-  <article class="card">
+  <article class="card wide">
     <div class="copy">
       <div class="meta"><span class="status dev">● In development</span><span>Personal project · 2026</span></div>
-      <h3>Modern geopolitical strategy game</h3>
+      <h3>Equilibrio: a geopolitical strategy game</h3>
       <p class="sub">A single-player game I'm building for fun, to push how far I can take AI-assisted development.</p>
       <dl>
-        <div><dt>The idea</dt><dd>A lightweight, modern take on classic strategy games. Players manage a power on a global map where economic, military and hybrid actions change the balance between countries.</dd></div>
-        <div><dt>What it shows</dt><dd>Turning a loose idea into a scoped design (rules, tiers of powers, map logic) and building it step by step with AI tools, while keeping it light enough to run on a regular laptop.</dd></div>
+        <div><dt>The idea</dt><dd>You lead a country (Argentina in this run) on a global map in 2027. You manage money, political capital, intelligence, military and energy, and use military, hybrid, economic and diplomatic actions to shift the balance between powers.</dd></div>
+        <div><dt>What it shows</dt><dd>Turning a loose idea into a scoped design (resources, power tiers, map logic, news feed) and building it step by step with AI tools, light enough to run on a regular laptop.</dd></div>
       </dl>
       <div class="stack"><span>Game design</span><span>Scoping</span><span>Claude Code</span></div>
     </div>
-    <div class="preview" aria-label="Power tiers in the game">
-      <table class="mini">
-        <thead><tr><th>Tier</th><th>Powers</th></tr></thead>
-        <tbody>
-          <tr><td><span class="pill bad">Major</span></td><td>USA · China · Russia</td></tr>
-          <tr><td><span class="pill warn">Middle</span></td><td>EU · India · Japan · Iran · Israel</td></tr>
-          <tr><td><span class="pill ok">Emerging</span></td><td>Brazil · Argentina</td></tr>
-        </tbody>
-      </table>
-      <p class="note">Early design notes</p>
+    <div class="preview">
+      <img class="shot" src="juego.jpg" alt="Equilibrio game screen: world map with regions, resource bar and action panel" width="1600" height="890" loading="lazy">
     </div>
   </article>
 </section>
