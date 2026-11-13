@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diego Tejerina · Projects</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Layout: dark canvas with a dotted grid, like a workflow editor; each project is a card with a live-looking preview */
+  --bg:#0e0c16;
+  --surface:#17141f;
+  --surface-2:#211d2b;
+  --line:#2f2a3b;
+  --text:#f3f1f7;
+  --muted:#a6a0b5;
+  --accent:#ff6d5a;
+  --accent-2:#ea4b71;
+  --ok:#4fd1a5;
+  --warn:#f5b84a;
+  --font-display:"Sora", "Segoe UI", system-ui, sans-serif;
+  --font-body:"DM Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:var(--font-body);font-size:18px;line-height:1.6;
+  background-image:radial-gradient(circle, #2a2536 1px, transparent 1.2px);
+  background-size:22px 22px;
+}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+/* Header */
+nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:24px 0;flex-wrap:wrap}
+.logo{font-family:var(--font-display);font-weight:700;font-size:20px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.logo i{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:inline-block}
+.navlinks{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:16px;padding:11px 20px;border-radius:999px;border:1px solid var(--line);background:var(--surface);transition:border-color .15s,transform .15s}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));border:0;color:#fff}
+
+header.hero{padding:56px 0 40px}
+.tag{font-family:var(--font-mono);font-size:14px;color:var(--accent);letter-spacing:.04em}
+h1{font-family:var(--font-display);font-weight:700;font-size:clamp(38px,6vw,64px);line-height:1.08;letter-spacing:-.025em;margin:14px 0 22px;max-width:16ch;text-wrap:balance}
+h1 span{background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{font-size:21px;color:var(--muted);max-width:60ch;margin:0}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.chip{font-size:15px;padding:7px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--muted)}
+.chip b{color:var(--text);font-weight:600}
+
+/* Projects */
+section.projects{display:grid;gap:28px;padding:24px 0 40px}
+.sec-title{font-family:var(--font-display);font-size:28px;font-weight:600;margin:0;letter-spacing:-.01em}
+.card{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.card .copy{padding:36px}
+.card .preview{background:var(--surface-2);border-left:1px solid var(--line);padding:28px;display:flex;flex-direction:column;justify-content:center;gap:14px;min-width:0}
+.meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-family:var(--font-mono);font-size:13px;color:var(--muted)}
+.status{padding:3px 10px;border-radius:999px;font-weight:500}
+.status.live{background:rgba(79,209,165,.12);color:var(--ok)}
+.status.dev{background:rgba(245,184,74,.12);color:var(--warn)}
+.card h3{font-family:var(--font-display);font-size:28px;line-height:1.2;letter-spacing:-.015em;margin:12px 0 6px;text-wrap:balance}
+.card .sub{color:var(--muted);margin:0 0 22px}
+dl{margin:0;display:grid;gap:16px}
+dt{font-family:var(--font-mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+dd{margin:2px 0 0}
+.stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.stack span{font-size:14px;padding:5px 12px;border-radius:8px;background:var(--surface-2);border:1px solid var(--line)}
+.note{font-size:13px;color:var(--muted);font-family:var(--font-mono);text-align:center}
+
+/* Workflow nodes (n8n-like) */
+.flow{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0}
+.node{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;min-width:104px;text-align:center;font-size:14px;font-weight:600;line-height:1.3}
+.node small{display:block;font-weight:400;color:var(--muted);font-size:12px;margin-top:2px}
+.node .ic{width:34px;height:34px;border-radius:10px;margin:0 auto 8px;display:grid;place-items:center;font-family:var(--font-mono);font-size:13px;font-weight:600;color:#fff}
+.node.hl{border-color:var(--accent)}
+.wire{width:28px;height:2px;background:var(--line);position:relative}
+.wire::after{content:"";position:absolute;right:-1px;top:-3px;border-left:6px solid var(--line);border-top:4px solid transparent;border-bottom:4px solid transparent}
+
+/* Mini tables */
+.mini{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums;background:var(--surface);border-radius:12px;overflow:hidden}
+.mini th{font-family:var(--font-mono);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+.mini td{padding:9px 12px;border-bottom:1px solid var(--line)}
+.mini tr:last-child td{border-bottom:0}
+.mini .r{text-align:right}
+.pill{font-size:12px;padding:2px 8px;border-radius:999px;font-weight:600}
+.pill.ok{background:rgba(79,209,165,.14);color:var(--ok)}
+.pill.warn{background:rgba(245,184,74,.14);color:var(--warn)}
+.pill.bad{background:rgba(234,75,113,.16);color:#ff8aa6}
+
+/* Chat bubble */
+.chat{display:grid;gap:8px;font-size:14px}
+.bubble{max-width:86%;padding:10px 14px;border-radius:14px;line-height:1.45}
+.bubble.me{justify-self:end;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border-bottom-right-radius:4px}
+.bubble.bot{background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:4px}
+
+/* Savings */
+.total{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.total b{font-family:var(--font-display);font-size:32px;font-variant-numeric:tabular-nums}
+.total span{color:var(--muted);font-size:14px}
+.bar{display:flex;height:14px;border-radius:999px;overflow:hidden;gap:2px}
+.legend{display:grid;gap:8px;font-size:14px}
+.legend div{display:flex;justify-content:space-between;gap:10px;font-variant-numeric:tabular-nums}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px}
+
+/* Feed */
+.feed{display:grid;gap:10px}
+.entry{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--ok);border-radius:12px;padding:12px 14px;font-size:14px}
+.entry.mid{border-left-color:var(--warn)}
+.entry.unv{border-left-color:var(--accent-2)}
+.entry .top{display:flex;justify-content:space-between;gap:8px;font-family:var(--font-mono);font-size:12px;color:var(--muted);margin-bottom:4px}
+
+/* Footer */
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:12px 0 40px}
+.how div{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px}
+.how b{font-family:var(--font-display);font-size:19px;display:block;margin-bottom:6px}
+.how p{margin:0;color:var(--muted);font-size:16px}
+footer{border-top:1px solid var(--line);padding:36px 0 48px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer p{margin:0;color:var(--muted)}
+footer .big{font-family:var(--font-display);font-size:24px;color:var(--text);font-weight:600}
+
+@media (max-width:860px){
+  .card{grid-template-columns:1fr}
+  .card .preview{border-left:0;border-top:1px solid var(--line)}
+  .card .copy{padding:28px 24px}
+  .how{grid-template-columns:1fr}
+}
+@media (max-width:480px){
+  .wrap{padding:0 16px}
+  .wire{width:2px;height:18px}
+  .wire::after{right:-3px;top:auto;bottom:-1px;border-top:6px solid var(--line);border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:0}
+  .flow{flex-direction:column}
+  .node{width:100%}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<nav>
+  <div class="logo"><i></i>Diego Tejerina</div>
+  <div class="navlinks">
+    <a class="btn" href="https://www.linkedin.com/in/diego-tejerina/">LinkedIn</a>
+    <a class="btn primary" href="mailto:ddiego.tejerina@gmail.com">Get in touch</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="tag">// PROJECT &amp; OPERATIONS MANAGER</div>
+  <h1>I turn messy processes into <span>workflows that run.</span></h1>
+  <p class="lede">7+ years coordinating projects across government, multi-site operations and market research. Lately I use AI and automation to build the tools my teams need, so work stops depending on spreadsheets and memory.</p>
+  <div class="facts">
+    <span class="chip"><b>Based in</b> Buenos Aires · Berlin</span>
+    <span class="chip"><b>Languages</b> ES · EN · PT · DE</span>
+    <span class="chip"><b>Tools</b> n8n · Notion · Asana · Claude · Gemini</span>
+  </div>
+</header>
+
+<section class="projects" aria-label="Projects">
+  <h2 class="sec-title">Selected projects</h2>
+
+  <!-- 1. Rosa Canina -->
+  <article class="card">
+    <div class="copy">
+      <div class="meta"><span class="status live">● In use</span><span>Client project · Berlin · 2026</span></div>
+      <h3>Cold-chain operations for an ice cream &amp; chocolate maker</h3>
+      <p class="sub">Rosa Canina, a bean-to-bar chocolate and ice cream producer with B2B clients.</p>
+      <dl>
+        <div><dt>Problem</dt><dd>Production batches, container stock, flavours and B2B orders lived in separate places. Nobody had one view of what was made, what was in the freezer and what had to ship.</dd></div>
+        <div><dt>What I did</dt><dd>Mapped the flow with the team, from production to delivery, and designed one internal tool that connects every step. I delivered a standalone version the client hosts on its own, with no extra subscriptions.</dd></div>
+        <div><dt>Result</dt><dd>One place to plan production against real orders and stock, replacing manual reconciliation.</dd></div>
+      </dl>
+      <div class="stack"><span>Process mapping</span><span>Claude</span><span>Firebase</span><span>Stakeholder interviews</span></div>
+    </div>
+    <div class="preview" aria-label="Illustration of the operations flow">
+      <div class="flow">
+        <div class="node"><div class="ic" style="background:#7c5cff">P</div>Production<small>batches</small></div>
+        <div class="wire"></div>
+        <div class="node hl"><div class="ic" style="background:var(--accent)">C</div>Containers<small>stock</small></div>
+        <div class="wire"></div>
+        <div class="node"><div class="ic" style="background:#2fa58a">O</div>B2B orders<small>delivery</small></div>
+      </div>
+      <table class="mini">
+        <thead><tr><th>Flavour</th><th class="r">In stock</th><th class="r">Ordered</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Dark chocolate 72%</td><td class="r">14</td><td class="r">9</td><td><span class="pill ok">OK</span></td></tr>
+          <tr><td>Pistachio</td><td class="r">4</td><td class="r">7</td><td><span class="pill bad">Produce</span></td></tr>
+          <tr><td>Ricotta &amp; lime</td><td class="r">6</td><td class="r">5</td><td><span class="pill warn">Low</span></td></tr>
+        </tbody>
+      </table>
+      <p class="note">Illustrative data</p>
+    </div>
+  </article>
+
+  <!-- 2. Bot -->
+  <article class="card">
+    <div class="copy">
+      <div class="meta"><span class="status live">● Running daily</span><span>Automation · 2026</span></div>
+      <h3>AI calendar assistant on Telegram</h3>
+      <p class="sub">A prototype of what an executive assistant can automate for a busy principal.</p>
+      <dl>
+        <div><dt>Problem</dt><dd>Checking the day's meetings means opening the calendar, scrolling and cross-checking. Small task, many times a day.</dd></div>
+        <div><dt>What I did</dt><dd>Built a workflow in n8n that sends a morning briefing on Telegram and answers questions in plain language ("what do I have Thursday?") through an AI agent reading Google Calendar.</dd></div>
+        <div><dt>Next</dt><dd>Letting the agent create and move events, running on self-hosted n8n to keep costs at zero.</dd></div>
+      </dl>
+      <div class="stack"><span>n8n</span><span>Telegram</span><span>Google Calendar</span><span>Gemini</span></div>
+    </div>
+    <div class="preview" aria-label="Workflow and example conversation">
+      <div class="flow">
+        <div class="node"><div class="ic" style="background:#229ed9">T</div>Telegram<small>trigger</small></div>
+        <div class="wire"></div>
+        <div class="node hl"><div class="ic" style="background:linear-gradient(135deg,var(--accent),var(--accent-2))">AI</div>AI Agent<small>Gemini</small></div>
+        <div class="wire"></div>
+        <div class="node"><div class="ic" style="background:#4285f4">31</div>Calendar<small>read events</small></div>
+      </div>
+      <div class="chat">
+        <div class="bubble bot">Good morning. Today: 3 events. 10:00 Supplier call · 13:30 Team sync · 17:00 Dentist.</div>
+        <div class="bubble me">Anything Thursday afternoon?</div>
+        <div class="bubble bot">Thursday is free after 14:00. Your last event ends at 13:00.</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 3. Savings -->
+  <article class="card">
+    <div class="copy">
+      <div class="meta"><span class="status live">● In use</span><span>Personal tool · 2026</span></div>
+      <h3>Shared savings dashboard for a household</h3>
+      <p class="sub">Two people, several accounts and currencies, one up-to-date picture.</p>
+      <dl>
+        <div><dt>Problem</dt><dd>Savings were spread across banks, cash and currencies. Knowing the total meant asking each other and adding it up by hand.</dd></div>
+        <div><dt>What I did</dt><dd>Defined what each person needs to see and edit, then built a simple dashboard both of us update in seconds, with totals by place and currency.</dd></div>
+        <div><dt>Result</dt><dd>Money conversations start from the same numbers.</dd></div>
+      </dl>
+      <div class="stack"><span>Requirements</span><span>Data visualization</span><span>Claude</span></div>
+    </div>
+    <div class="preview" aria-label="Savings dashboard with sample data">
+      <div class="total"><b>€ 18,450</b><span>Total saved · updated today</span></div>
+      <div class="bar" role="img" aria-label="Distribution: bank 46%, investment 27%, dollars 19%, cash 8%">
+        <div style="width:46%;background:#7c5cff"></div>
+        <div style="width:27%;background:var(--accent)"></div>
+        <div style="width:19%;background:#2fa58a"></div>
+        <div style="width:8%;background:var(--warn)"></div>
+      </div>
+      <div class="legend">
+        <div><span><i style="background:#7c5cff"></i>Bank account (EUR)</span><span>€ 8,500</span></div>
+        <div><span><i style="background:var(--accent)"></i>Investment fund</span><span>€ 5,000</span></div>
+        <div><span><i style="background:#2fa58a"></i>US dollars</span><span>€ 3,450</span></div>
+        <div><span><i style="background:var(--warn)"></i>Cash</span><span>€ 1,500</span></div>
+      </div>
+      <p class="note">Sample data</p>
+    </div>
+  </article>
+
+  <!-- 4. Conflict monitor -->
+  <article class="card">
+    <div class="copy">
+      <div class="meta"><span class="status dev">● In development</span><span>Own project · 2026</span></div>
+      <h3>Geopolitical conflict monitor</h3>
+      <p class="sub">Builds on my background in policy analysis and OSINT.</p>
+      <dl>
+        <div><dt>Problem</dt><dd>Following conflicts means reading dozens of sources of uneven quality, with no quick way to tell confirmed facts from noise.</dd></div>
+        <div><dt>What I'm building</dt><dd>A site that monitors curated sources twice a day, summarises what changed and rates each item by source reliability, with human review before publishing. Bilingual (ES/EN).</dd></div>
+        <div><dt>Scope</dt><dd>MVP: Russia–Ukraine, Latin America, Middle East and Africa. Sources grouped by power factor: economy, politics, military, science, society.</dd></div>
+      </dl>
+      <div class="stack"><span>Product scoping</span><span>OSINT</span><span>Claude Code</span><span>Source rating</span></div>
+    </div>
+    <div class="preview" aria-label="Example feed entries">
+      <div class="feed">
+        <div class="entry"><div class="top"><span>MILITARY · RUS/UKR</span><span>High reliability</span></div>New front-line report confirmed by 3 independent sources.</div>
+        <div class="entry mid"><div class="top"><span>ECONOMY · LATAM</span><span>Medium</span></div>Trade agreement talks resume; one official source so far.</div>
+        <div class="entry unv"><div class="top"><span>ON X NOW</span><span>Unverified</span></div>Claims circulating, kept apart until checked.</div>
+      </div>
+      <p class="note">Mock-up of the feed</p>
+    </div>
+  </article>
+</section>
+
+<section class="projects" aria-label="Personal project" style="padding-top:0">
+  <h2 class="sec-title">On the side</h2>
+  <article class="card">
+    <div class="copy">
+      <div class="meta"><span class="status dev">● In development</span><span>Personal project · 2026</span></div>
+      <h3>Modern geopolitical strategy game</h3>
+      <p class="sub">A single-player game I'm building for fun, to push how far I can take AI-assisted development.</p>
+      <dl>
+        <div><dt>The idea</dt><dd>A lightweight, modern take on classic strategy games. Players manage a power on a global map where economic, military and hybrid actions change the balance between countries.</dd></div>
+        <div><dt>What it shows</dt><dd>Turning a loose idea into a scoped design (rules, tiers of powers, map logic) and building it step by step with AI tools, while keeping it light enough to run on a regular laptop.</dd></div>
+      </dl>
+      <div class="stack"><span>Game design</span><span>Scoping</span><span>Claude Code</span></div>
+    </div>
+    <div class="preview" aria-label="Power tiers in the game">
+      <table class="mini">
+        <thead><tr><th>Tier</th><th>Powers</th></tr></thead>
+        <tbody>
+          <tr><td><span class="pill bad">Major</span></td><td>USA · China · Russia</td></tr>
+          <tr><td><span class="pill warn">Middle</span></td><td>EU · India · Japan · Iran · Israel</td></tr>
+          <tr><td><span class="pill ok">Emerging</span></td><td>Brazil · Argentina</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Early design notes</p>
+    </div>
+  </article>
+</section>
+
+<section aria-label="How I work">
+  <h2 class="sec-title" style="margin-bottom:18px">How I work</h2>
+  <div class="how">
+    <div><b>Map first</b><p>I start by watching how the work really happens and who depends on it.</p></div>
+    <div><b>Build small</b><p>A working version in days, tested with the people who use it.</p></div>
+    <div><b>Hand it over</b><p>Documented and owned by the team, with no lock-in to me or to a paid tool.</p></div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <p class="big">Let's talk.</p>
+    <p>ddiego.tejerina@gmail.com · linkedin.com/in/diego-tejerina</p>
+  </div>
+  <a class="btn primary" href="https://www.linkedin.com/in/diego-tejerina/">Connect on LinkedIn</a>
+</footer>
+
+</div>
+</body>
+</html>
